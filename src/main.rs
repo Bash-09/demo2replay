@@ -156,8 +156,8 @@ impl Application for App {
                     &header.map,
                 );
 
-                println!("Loaded demo: {header:?}");
                 self.demo = Ok(header);
+                self.status = String::new();
             }
             Message::ClearThumbnail => {
                 if let Err(e) = self.load_thumbnail(None) {
@@ -166,7 +166,9 @@ impl Application for App {
             }
             Message::CreateReplay => {
                 if let Err(e) = self.create_replay() {
-                    println!("Error creating replay: {e:?}");
+                    self.status = format!("Error creating replay: {e}");
+                } else {
+                    self.status = String::from("Successfully created replay!");
                 }
             }
             Message::SetReplayName(name) => self.replay_name = name,
@@ -232,6 +234,9 @@ impl App {
         };
 
         let file_name = filenamify(&self.replay_name);
+        if file_name.trim().is_empty() {
+            return Err(anyhow!("Replay name is not valid"));
+        }
 
         let handle = &mut std::fs::read_dir(tf2_dir.join(DIR_REPLAY))
             .context("Reading replay folder")?
@@ -295,9 +300,13 @@ impl App {
 }
 
 fn main() {
-    App::run(iced::Settings::with_flags(
+    let mut settings = iced::Settings::with_flags(
         steamlocate::SteamDir::locate()
             .and_then(|mut s| s.app(&TF2_APP_ID).map(|a| a.path.clone())),
-    ))
-    .expect("Failed to run app.");
+    );
+
+    settings.window.size.width = 1050.0;
+    settings.window.size.height = 500.0;
+
+    App::run(settings).expect("Failed to run app.");
 }

@@ -129,7 +129,12 @@ pub fn details(app: &App) -> IcedContainer<'_> {
                 ]
                 .spacing(15),
                 // convert
-                widget::button("Create Replay").on_press(Message::CreateReplay)
+                widget::row![
+                    widget::button("Create Replay").on_press(Message::CreateReplay),
+                    widget::text(&app.status)
+                ]
+                .align_items(iced::Alignment::Center)
+                .spacing(15)
             ]
             .spacing(15);
 
