@@ -1,0 +1,23 @@
+"%replay_name%"
+{
+	"handle"		"%handle%"
+	"map"		"%map%"
+	"complete"		"1"
+	"length"		"%length%"
+	"title"		"%title%"
+	"recon_filename"		"%demo%"
+	"screenshots"
+	{
+		"screenshot"
+		{
+			"width"		"512"
+			"height"		"288"
+			"base_filename"		"%screenshot%"
+		}
+	}
+	"record_time"
+	{
+		"date"		"%date%"
+		"time"		"%time%"
+	}
+}
