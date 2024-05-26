@@ -14,6 +14,8 @@ use tf_demo_parser::{
 
 pub mod gui;
 
+const WINDOW_ICON: &[u8] = include_bytes!("icon.png");
+
 const DEFAULT_THUMBNAIL: &[u8] = include_bytes!("default.png");
 
 const TEMPLATE_DMX: &str = include_str!("template_dmx.txt");
@@ -81,9 +83,12 @@ impl Application for App {
             status: String::new(),
         };
 
+        let icon = iced::window::icon::from_file_data(WINDOW_ICON, Some(ImageFormat::Png))
+            .expect("Invalid window icon.");
+
         app.load_thumbnail(None)
             .expect("Coudln't load default thumbnail");
-        (app, iced::Command::none())
+        (app, iced::window::change_icon(iced::window::Id::MAIN, icon))
     }
 
     fn title(&self) -> String {
