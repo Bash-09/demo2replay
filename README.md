@@ -4,7 +4,9 @@ Create a Replay from a demo file for TF2
 
 # Usage
 
-Just run the app!
+Windows: Just run the .exe!
+
+Linux: Mark the file as an executable (or `chmod +x demo2replay`) and then run it with `./demo2replay`
 
 1. When it starts it will attempt to automatically locate your TF2 directory, but if that fails you can browse and set the directory manually.
 2. Click the "Select demo file" button to choose your demo
